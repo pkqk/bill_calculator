@@ -8,20 +8,21 @@ class Bill
   end
 
   def split_by(number)
-    gross = total
-    prices = []
-    approx_split = (total / number).round(2)
-    number.times do |i|
-      #if approx_split <= gross
-      if i == (number - 1)
-        prices << gross
-      else
-        prices << approx_split
-        gross -= approx_split
-      end
-    end
-    prices
+    split_price_by(total, number)
   end
 
   attr_reader :subtotal, :service_charge, :discount
+
+  private
+
+  def split_price_by(amount, number)
+    pence = (amount * 100).round(0)
+    split = pence / number
+    remainder = pence % number
+    prices = [split] * number
+    remainder.times do |i|
+      prices[i % prices.count] += 1
+    end
+    prices.map { |p| p / 100.0 }
+  end
 end
