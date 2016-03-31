@@ -8,7 +8,19 @@ class Bill
   end
 
   def split_by(number)
-    # TODO: implement the split method
+    gross = total
+    prices = []
+    approx_split = (total / number).round(2)
+    number.times do |i|
+      #if approx_split <= gross
+      if i == (number - 1)
+        prices << gross
+      else
+        prices << approx_split
+        gross -= approx_split
+      end
+    end
+    prices
   end
 
   attr_reader :subtotal, :service_charge, :discount

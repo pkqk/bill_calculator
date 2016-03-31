@@ -4,14 +4,18 @@ class BillDecorator
   end
 
   def total
-    # TODO: implement the total method
+    format_currency(bill.total)
   end
 
   def split_by(number)
-    # TODO: implement the split_by method
+    bill.split_by(number).map{ |v| format_currency(v) }
   end
 
   private
+
+  def format_currency(value)
+    "£%.2f" % value
+  end
 
   attr_reader :bill
 end
