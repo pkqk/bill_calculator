@@ -1,6 +1,9 @@
 class Item < Struct.new(:name, :price)
 end
 
+class ItemSplit < Struct.new(:item, :service_charge, :discount)
+end
+
 class Bill
   def initialize(items:, service_charge: 0, discount: 0)
     @items, @service_charge, @discount = items, service_charge, discount
@@ -16,6 +19,13 @@ class Bill
 
   def split_by(number)
     split_price_by(total, number)
+  end
+
+  def itemised_split
+    items.map do |item|
+      percentage = item.price / subtotal
+      ItemSplit.new(item, service_charge * percentage, discount * percentage)
+    end
   end
 
   attr_reader :items, :service_charge, :discount
