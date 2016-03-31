@@ -36,7 +36,10 @@ describe Bill do
 
     describe '#split_by' do
       it 'should return an array of amounts' do
-        expect(subject.split_by(3)).to eq([3.33, 3.33, 3.34])
+        prices = subject.split_by(3)
+        expect(prices.count).to eq(3)
+        expect(prices.count(3.33)).to eq(2)
+        expect(prices.count(3.34)).to eq(1)
       end
     end
   end
