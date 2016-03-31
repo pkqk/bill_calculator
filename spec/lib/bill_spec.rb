@@ -40,6 +40,7 @@ describe Bill do
         expect(prices.count).to eq(3)
         expect(prices.count(3.33)).to eq(2)
         expect(prices.count(3.34)).to eq(1)
+        expect(prices.inject(:+).round(2)).to eq(subject.total)
       end
     end
   end
