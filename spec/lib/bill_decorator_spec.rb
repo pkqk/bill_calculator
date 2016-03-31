@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 describe BillDecorator do
+  let(:item) { Item.new("£3 item", 3.0) }
+
   let :bill do
-    Bill.new(subtotal: 9.0, service_charge: 1.0, discount: 0.0)
+    Bill.new(items: [ item ] * 3, service_charge: 1.0, discount: 0.0)
   end
   subject { BillDecorator.new(bill) }
 

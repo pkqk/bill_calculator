@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe Bill do
+
+  let(:item) { Item.new("£3 item",  3.0) }
+
   describe "a simple total" do
     let(:attributes) do
-      { subtotal: 9.0, service_charge: 0.0, discount: 0.0 }
+      { items: [ item ] * 3, service_charge: 0.0, discount: 0.0 }
     end
 
     subject { Bill.new(attributes) }
@@ -23,7 +26,7 @@ describe Bill do
 
   describe "a less divisable total" do
     let(:attributes) do
-      { subtotal: 9.0, service_charge: 1.0, discount: 0.0 }
+      { items: [ item ] * 3, service_charge: 1.0, discount: 0.0 }
     end
 
     subject { Bill.new(attributes) }
